@@ -274,6 +274,31 @@ contactForm.addEventListener("submit", (e) => {
         statusMsg.style.color = "#ff6b6b";
     }
 });
+
+// Show/Hide Projects Section with State Persistence
+const toggleProjectsBtn = document.getElementById("toggleProjects");
+const projectsContent = document.getElementById("projectsContent");
+let projectsVisible = localStorage.getItem("projectsVisible") !== "false"; // Default to visible
+
+function updateProjectsVisibility() {
+    if (projectsVisible) {
+        projectsContent.style.display = "block";
+        toggleProjectsBtn.textContent = "Hide Projects";
+    } else {
+        projectsContent.style.display = "none";
+        toggleProjectsBtn.textContent = "Show Projects";
+    }
+}
+
+toggleProjectsBtn.addEventListener("click", () => {
+    projectsVisible = !projectsVisible;
+    localStorage.setItem("projectsVisible", projectsVisible.toString());
+    updateProjectsVisibility();
+});
+
+// Initialize projects visibility on page load
+updateProjectsVisibility();
+
 // Git Hub API
 const reposContainer = document.getElementById("reposContainer");
 const GitHubUserName = "darkwinTech"; // Change this to your GitHub username

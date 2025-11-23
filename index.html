@@ -115,6 +115,12 @@
 <section id="projects">
     <div class="container">
         <h2 class="subtitle">Projects</h2>
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+            <button id="toggleProjects" class="btn">Hide Projects</button>
+        </div>
+
+        <!-- Projects Content (can be shown/hidden) -->
+        <div id="projectsContent">
         <!-- Skill Level Selector -->
         <div class="skill-level-selector">
             <label for="skillLevel">Show projects for:</label>
@@ -175,6 +181,7 @@
             </article>
         </div>
         <p id="noProjectsMessage" class="no-projects-message" style="display: none;">No projects match your selected filters.</p>
+        </div>
     </div>
 </section>
 
