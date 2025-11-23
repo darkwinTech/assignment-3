@@ -85,6 +85,21 @@ clearName.addEventListener("click", () => {
 // Run greeting on page load
 updateGreeting();
 
+// ===== Time on Site Counter =====
+const timeDisplay = document.getElementById("timeDisplay");
+let startTime = Date.now();
+let timeInterval;
+
+function updateTimeOnSite() {
+    const elapsed = Math.floor((Date.now() - startTime) / 1000); // seconds
+    const minutes = Math.floor(elapsed / 60);
+    const seconds = elapsed % 60;
+    timeDisplay.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+}
+
+// Update every second
+timeInterval = setInterval(updateTimeOnSite, 1000);
+updateTimeOnSite(); // Initial call
 // Sort By Date
 document.getElementById("sortBtn").addEventListener("click", function () {
     const grid = document.getElementById("projectsGrid");
