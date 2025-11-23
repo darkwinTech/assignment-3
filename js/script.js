@@ -100,17 +100,137 @@ function updateTimeOnSite() {
 // Update every second
 timeInterval = setInterval(updateTimeOnSite, 1000);
 updateTimeOnSite(); // Initial call
-// Sort By Date
-document.getElementById("sortBtn").addEventListener("click", function () {
-    const grid = document.getElementById("projectsGrid");
-    const projects = Array.from(grid.children);
 
-    // Sort by descending date (newest first)
-    projects.sort((a, b) => new Date(b.dataset.date) - new Date(a.dataset.date));
 
-    // Re-append in new order
-    projects.forEach((project) => grid.appendChild(project));
-});
+// // Sort By Date
+// document.getElementById("sortBtn").addEventListener("click", function () {
+//     const grid = document.getElementById("projectsGrid");
+//     const projects = Array.from(grid.children);
+//
+//     // Sort by descending date (newest first)
+//     projects.sort((a, b) => new Date(b.dataset.date) - new Date(a.dataset.date));
+//
+//     // Re-append in new order
+//     projects.forEach((project) => grid.appendChild(project));
+// });
+
+// ===== Project Filtering and Sorting =====
+const projectsGrid = document.getElementById("projectsGrid");
+const categoryFilter = document.getElementById("categoryFilter");
+const sortByDateBtn = document.getElementById("sortByDate");
+const sortByNameBtn = document.getElementById("sortByName");
+const skillLevel = document.getElementById("skillLevel");
+const noProjectsMessage = document.getElementById("noProjectsMessage");
+
+// Store all projects (cloned to preserve original order)
+let allProjects = Array.from(projectsGrid.children);
+let currentSortType = "date"; // Track current sort type
+
+// Category mapping for display
+const categoryNames = {
+    "web": "Web Project",
+    "ml": "Machine Learning",
+    "platform": "Platform/App"
+};
+
+// Function to initialize project metadata (year and category)
+function initializeProjectMetadata() {
+    allProjects.forEach(project => {
+        const date = project.dataset.date;
+        const category = project.dataset.category;
+
+        // Extract year from date
+        const year = date ? new Date(date).getFullYear() : "";
+
+        // Get category display name
+        const categoryName = categoryNames[category] || category;
+
+        // Find or create project-meta div
+        let metaDiv = project.querySelector(".project-meta");
+        if (!metaDiv) {
+            metaDiv = document.createElement("div");
+            metaDiv.className = "project-meta";
+            const img = project.querySelector("img");
+            if (img && img.nextSibling) {
+                project.insertBefore(metaDiv, img.nextSibling);
+            } else if (img) {
+                project.appendChild(metaDiv);
+            }
+        }
+
+        // Update or create year and category spans
+        let yearSpan = metaDiv.querySelector(".project-year");
+        let categorySpan = metaDiv.querySelector(".project-category");
+
+        if (!yearSpan) {
+            yearSpan = document.createElement("span");
+            yearSpan.className = "project-year";
+            metaDiv.appendChild(yearSpan);
+        }
+        yearSpan.textContent = year;
+
+        if (!categorySpan) {
+            categorySpan = document.createElement("span");
+            categorySpan.className = "project-category";
+            metaDiv.appendChild(categorySpan);
+        }
+        categorySpan.textContent = categoryName;
+    });
+}
+
+// Initialize metadata on page load
+initializeProjectMetadata();
+
+// Set initial active state
+sortByDateBtn.classList.add("active");
+
+function filterAndSortProjects(sortType = currentSortType) {
+    currentSortType = sortType;
+    const selectedCategory = categoryFilter.value;
+    const selectedLevel = skillLevel.value;
+
+    // Filter projects
+    let filtered = allProjects.filter(project => {
+        const categoryMatch = selectedCategory === "all" || project.dataset.category === selectedCategory;
+        const levelMatch = selectedLevel === "all" || project.dataset.level === selectedLevel;
+        return categoryMatch && levelMatch;
+    });
+
+    // Sort projects
+    filtered.sort((a, b) => {
+        if (sortType === "date") {
+            // Sort by date (newest first)
+            return new Date(b.dataset.date) - new Date(a.dataset.date);
+        } else if (sortType === "name") {
+            // Sort by name (A-Z)
+            return (a.dataset.name || a.querySelector("h3").textContent).localeCompare(b.dataset.name || b.querySelector("h3").textContent);
+        }
+        return 0;
+    });
+
+    // Clear grid and re-append filtered/sorted projects
+    projectsGrid.innerHTML = "";
+    if (filtered.length === 0) {
+        noProjectsMessage.style.display = "block";
+    } else {
+        noProjectsMessage.style.display = "none";
+        filtered.forEach(project => projectsGrid.appendChild(project));
+    }
+
+    // Update button active states
+    sortByDateBtn.classList.toggle("active", sortType === "date");
+    sortByNameBtn.classList.toggle("active", sortType === "name");
+}
+
+// Event listeners for filtering
+categoryFilter.addEventListener("change", () => filterAndSortProjects());
+skillLevel.addEventListener("change", () => filterAndSortProjects());
+
+// Event listeners for sorting buttons
+sortByDateBtn.addEventListener("click", () => filterAndSortProjects("date"));
+sortByNameBtn.addEventListener("click", () => filterAndSortProjects("name"));
+
+
 
 // Contact Form Handling
 const contactForm = document.getElementById("contactForm");
