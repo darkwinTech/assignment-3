@@ -117,8 +117,90 @@ a { color: inherit; }
     font-weight: 700;
     font-family: 'Courier New', monospace;
 }
+
+/* PROJECTS */
 /* PROJECTS */
 #projects { padding: 4rem 0; }
+
+/* Skill Level Selector */
+.skill-level-selector {
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.skill-level-selector label {
+    color: #e8e8e8;
+    font-weight: 600;
+}
+
+.skill-select,
+.filter-select {
+    padding: 0.5rem 0.8rem;
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.18);
+    background: rgba(255,255,255,0.06);
+    color: #fff;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.skill-select:hover,
+.filter-select:hover {
+    border-color: #ff004f;
+    background: rgba(255,255,255,0.09);
+}
+
+.skill-select:focus,
+.filter-select:focus {
+    outline: none;
+    border-color: #ff004f;
+    box-shadow: 0 0 0 3px rgba(255,0,79,0.25);
+}
+
+/* Project Controls (Filter and Sort) */
+.project-controls {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.filter-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex: 1;
+    min-width: 200px;
+}
+
+.filter-controls label {
+    color: #e8e8e8;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.sort-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.sort-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.95rem;
+}
+
+.sort-btn.active {
+    background: #ff004f;
+    border-color: #ff004f;
+    box-shadow: 0 0 0 3px rgba(255,0,79,0.25);
+}
+
 .projects-grid {
     display: grid; gap: 1.25rem; grid-template-columns: 1fr;
 }
@@ -128,12 +210,51 @@ a { color: inherit; }
     border-radius: 14px;
     padding: 16px;
     box-shadow: 0 8px 28px rgba(0,0,0,0.25);
+    transition: transform 0.2s ease, opacity 0.3s ease;
 }
 .project-card img {
     width: 100%; display: block; border-radius: 10px; margin-bottom: 12px; height: 200px; object-fit: cover;
 }
+
+.project-meta {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.project-year {
+    padding: 0.35rem 0.7rem;
+    background: rgba(255, 0, 79, 0.15);
+    border: 1px solid rgba(255, 0, 79, 0.3);
+    border-radius: 6px;
+    color: #ff004f;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.project-category {
+    padding: 0.35rem 0.7rem;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    color: #cfcfcf;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
 .project-card h3 { margin: .5rem 0 .25rem; color: #FF004FFF; }
-/* Git Hub styling */
+
+.no-projects-message {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: #cfcfcf;
+    font-size: 1.1rem;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 14px;
+}
+
 github-repos {
     padding: 4rem 0;
 }
