@@ -85,7 +85,7 @@ clearName.addEventListener("click", () => {
 // Run greeting on page load
 updateGreeting();
 
-// ===== Time on Site Counter =====
+//  Time on Site Counter
 const timeDisplay = document.getElementById("timeDisplay");
 let startTime = Date.now();
 let timeInterval;
@@ -101,20 +101,7 @@ function updateTimeOnSite() {
 timeInterval = setInterval(updateTimeOnSite, 1000);
 updateTimeOnSite(); // Initial call
 
-
-// // Sort By Date
-// document.getElementById("sortBtn").addEventListener("click", function () {
-//     const grid = document.getElementById("projectsGrid");
-//     const projects = Array.from(grid.children);
-//
-//     // Sort by descending date (newest first)
-//     projects.sort((a, b) => new Date(b.dataset.date) - new Date(a.dataset.date));
-//
-//     // Re-append in new order
-//     projects.forEach((project) => grid.appendChild(project));
-// });
-
-// ===== Project Filtering and Sorting =====
+// Project Filtering and Sorting
 const projectsGrid = document.getElementById("projectsGrid");
 const categoryFilter = document.getElementById("categoryFilter");
 const sortByDateBtn = document.getElementById("sortByDate");
@@ -352,7 +339,8 @@ const ACCENT_PALETTE = [
     { name: "Blue",   hex: "#3b82f6" },
     { name: "Purple", hex: "#a855f7" },
     { name: "Pink", hex: "#FF99E5" },
-    { name: "Trkuz", hex: "#66FFFF" }
+    { name: "Trkuz", hex: "#66FFFF" },
+    { name: "Red", hex: "#FF004FFF" }
 ];
 
 function applyAccent(hex, rgb) {
